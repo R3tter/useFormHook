@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "target": "es5",
+    "allowJs": false,
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "utils/*": ["utils/*"],
+      "utils": ["utils"]
+    }
+  }
+}

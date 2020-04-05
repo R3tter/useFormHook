@@ -1,0 +1,32 @@
+{
+  "name": "lib_boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "rm -rf ./dist && webpack --mode development --config ./webpack.config.js && cp package.json dist/ && cp README.md dist/"
+  },
+  "author": "R3tter",
+  "license": "MIT",
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|js)$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-typescript": "^7.9.0",
+    "babel-jest": "^25.2.6",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "jest": "^25.2.7",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}
