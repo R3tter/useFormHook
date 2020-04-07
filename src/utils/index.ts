@@ -1,6 +1,7 @@
 import { Errors, Validation, Form } from '../types';
 
-export const sum = (a: number, b: number) => a + b;
+export const styledConsole = (message) =>
+  console.log(`%c An error has occurred: ${message}`, 'color: red; font-size: 12px');
 
 export const ThrowError = (param: boolean, message: string) => {
   if (param) throw message;
@@ -17,7 +18,7 @@ export const validate = (form: Form, validation: Validation, setForm: (data: For
       if (!matchWithField) {
         rules.forEach(({ regex, message }) => {
           const isFunc = typeof regex === 'function';
-          ThrowError(valueIsArr && !isFunc, 'Use function to check array values');
+          ThrowError(valueIsArr && !isFunc, 'Use function to check array like values');
           if (!isError) {
             // @ts-ignore
             isError = isFunc ? !regex(value) : !regex.test(value);
@@ -36,9 +37,27 @@ export const validate = (form: Form, validation: Validation, setForm: (data: For
       ...form,
       errors
     });
-
     return !Object.keys(errors).length;
   } catch (e) {
-    console.log(`%c An error has occurred: ${e}`, 'color: red; font-size: 12px');
+    styledConsole(e);
   }
 };
+
+export const createEvent = ({
+  name,
+  value,
+  type,
+  checked
+}: {
+  name: string;
+  value: any;
+  type?: string;
+  checked?: boolean;
+}) => ({
+  target: {
+    name,
+    value,
+    type,
+    checked
+  }
+});

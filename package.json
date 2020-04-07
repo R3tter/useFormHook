@@ -9,6 +9,9 @@
   },
   "author": "R3tter",
   "license": "MIT",
+  "hooks": {
+    "pre-push": "npm run test"
+  },
   "jest": {
     "transform": {
       "^.+\\.(ts|js)$": "babel-jest"
@@ -25,6 +28,7 @@
     "@types/react": "^16.9.32",
     "babel-jest": "^25.2.6",
     "babel-plugin-module-resolver": "^4.0.0",
+    "husky": "^4.2.3",
     "jest": "^25.2.7",
     "prettier": "^2.0.3",
     "react": "^16.13.1",

@@ -1,5 +1,5 @@
 import { validate } from 'utils';
-import { RULES } from 'constants'
+import { RULES } from 'constants';
 
 const form = {
     values: {
