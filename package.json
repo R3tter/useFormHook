@@ -9,8 +9,12 @@
   },
   "author": "R3tter",
   "license": "MIT",
-  "hooks": {
-    "pre-push": "npm test"
+  "husky": {
+    "hooks": {
+      "hooks": {
+        "pre-push": "npm test"
+      }
+    }
   },
   "jest": {
     "transform": {
