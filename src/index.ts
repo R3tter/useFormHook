@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Values, Validation, Target, Form, FromResult } from './types';
 import { validate } from 'utils';
 
-export const useForm = (initialValues: Values, validation: Validation): FromResult => {
+export const useForm = (initialValues: Values, validation: Validation, validateOnChange: boolean): FromResult => {
   const initialForm = {
     values: { ...initialValues },
     errors: {},
@@ -20,7 +20,7 @@ export const useForm = (initialValues: Values, validation: Validation): FromResu
         [name]: type === 'checkbox' ? checked : value
       }
     };
-    setForm(newForm);
+    validateOnChange ? validation && validate(newForm, validation, setForm) : setForm(newForm);
   };
 
   const handleSubmit = (callback: (data: Values) => any) => () => {
