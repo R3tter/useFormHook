@@ -13,7 +13,8 @@
   "plugins": [
     ["module-resolver", {
       "alias": {
-        "utils": "./src/utils"
+        "utils": "./src/utils",
+        "constants": "./src/constants"
       }
     }]
   ]
