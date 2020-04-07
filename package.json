@@ -10,11 +10,9 @@
   "author": "R3tter",
   "license": "MIT",
   "husky": {
-    "hooks": {
       "hooks": {
         "pre-push": "npm test"
       }
-    }
   },
   "jest": {
     "transform": {
