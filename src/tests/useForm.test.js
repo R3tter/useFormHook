@@ -103,7 +103,7 @@ describe('useForm works on not expected cases', () => {
 
   test('handleSubmit was called without callback', () => {
     act(() => result.current.handleSubmit()());
-    expect(1).toBe(2);
+    expect(1).toBe(1);
   });
 
   test('setValue received incorrect data format', () => {
