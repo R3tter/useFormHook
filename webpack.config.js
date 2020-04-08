@@ -21,7 +21,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
-        library: 'library-name',
+        library: 'use-form-validation-hook',
         libraryTarget: 'umd'
     },
     externals: {

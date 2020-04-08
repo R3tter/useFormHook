@@ -1,5 +1,5 @@
 {
-  "name": "use-form-hook",
+  "name": "use-form-validation-hook",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

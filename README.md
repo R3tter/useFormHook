@@ -1,11 +1,11 @@
 # useForm - is what you need to handle form
 ##Instalation
 ```
-npm i use-form-hook
+npm i use-form-validation-hook
 ```
 ##Usage
 ```
-import {useForm, RULES} from 'use-form-hook';
+import {useForm, RULES} from 'use-form-validation-hook';
 
 const Component = (data) => {
     const initialState = {
