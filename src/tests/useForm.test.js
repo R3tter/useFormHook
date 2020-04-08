@@ -84,6 +84,18 @@ describe('useForm works as expected', () => {
     expect(fn).toBeCalledTimes(1);
   });
 
+  test('validation should work on matchWithField', () => {
+    const fn = jest.fn();
+    const result = renderHook(() =>
+      useForm({ pass: '1234', repeatPass: '123' }, [{ name: 'repeatPass', matchWithField: 'pass' }])
+    ).result;
+    act(() => result.current.handleSubmit(fn)());
+    expect(fn).toBeCalledTimes(0);
+    expect(result.current.errors).toMatchObject({
+      repeatPass: 'Should be equal to pass'
+    })
+  });
+
   test('validation should work from onChange if validateOnChange is true', () => {
     const result = renderHook(() => useForm(initialValues, [{ rules: [RULES.required], name: 'name' }], true)).result;
     expect(result.current.errors).toMatchObject({});
