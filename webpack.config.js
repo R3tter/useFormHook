@@ -24,6 +24,13 @@ module.exports = {
         library: 'library-name',
         libraryTarget: 'umd'
     },
+    externals: {
+        react: {
+            commonjs: 'react',
+            commonjs2: 'react',
+            amd: 'react'
+        }
+    },
     optimization: {
         minimize: true
     }

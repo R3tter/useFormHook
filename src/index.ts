@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 import { Values, Validation, Target, Form, FromResult } from './types';
+import { RULES } from 'constants';
 import { validate, styledConsole, ThrowError } from 'utils';
 
 export const useForm = (initialValues: Values, validation?: Validation, validateOnChange?: boolean): FromResult => {
   const initialForm = {
     values: { ...initialValues },
-    errors: {},
-    submited: false
+    errors: {}
   };
   const [form, setForm] = useState<Form>(initialForm);
 

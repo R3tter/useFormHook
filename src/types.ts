@@ -29,13 +29,11 @@ export type Errors = {
 export type Form = {
   values: Values;
   errors: Errors | {};
-  submited: boolean;
 };
 
 export type FromResult = {
   values: Values;
   errors: Errors | {};
-  submited: boolean;
   handleChange: (obj: { target: Target }) => void;
   handleSubmit: (callBack: (data: Values) => any) => void;
   reset: () => void;
