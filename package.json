@@ -1,7 +1,6 @@
 {
-  "name": "lib_boilerplate",
+  "name": "use-form-hook",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -9,6 +8,11 @@
   },
   "author": "R3tter",
   "license": "MIT",
+  "husky": {
+      "hooks": {
+        "pre-push": "npm test"
+      }
+  },
   "jest": {
     "transform": {
       "^.+\\.(ts|js)$": "babel-jest"
@@ -21,10 +25,15 @@
   "devDependencies": {
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
+    "@testing-library/react-hooks": "^3.2.1",
+    "@types/react": "^16.9.32",
     "babel-jest": "^25.2.6",
     "babel-plugin-module-resolver": "^4.0.0",
+    "husky": "^4.2.3",
     "jest": "^25.2.7",
     "prettier": "^2.0.3",
+    "react": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",

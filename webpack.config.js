@@ -14,7 +14,8 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.ts'],
         alias: {
-            utils: path.resolve(__dirname, 'src/utils/')
+            utils: path.resolve(__dirname, 'src/utils/'),
+            constants: path.resolve(__dirname, 'src/constants/'),
         }
     },
     output: {
@@ -22,6 +23,13 @@ module.exports = {
         filename: 'index.js',
         library: 'library-name',
         libraryTarget: 'umd'
+    },
+    externals: {
+        react: {
+            commonjs: 'react',
+            commonjs2: 'react',
+            amd: 'react'
+        }
     },
     optimization: {
         minimize: true

@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "target": "es5",
     "allowJs": false,
     "moduleResolution": "node",
     "baseUrl": "src",
     "paths": {
       "utils/*": ["utils/*"],
-      "utils": ["utils"]
+      "utils": ["utils"],
+      "constants/*": ["constants/*"],
+      "constants": ["constants"]
     }
   }
 }
