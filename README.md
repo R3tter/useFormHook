@@ -29,7 +29,7 @@ const Component = (data) => {
       initialState,
       validation
     );
-
+    // You can use setValue if you want update fromData depending on props
     useEffect(() => {
         setValue(data);
     }, [data])
@@ -103,4 +103,3 @@ If ```validateOnChange``` equal to true. ```handleChange``` also will trigger ``
 
 
 
-  
