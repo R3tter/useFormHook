@@ -32,6 +32,11 @@ describe('useForm works as expected', () => {
       ...initialValues,
       name: event.value
     });
+    act(() => result.current.handleChange(createEvent({...event, value: 'some other' })));
+    expect(result.current.values).toMatchObject({
+      ...initialValues,
+      name: 'some other'
+    });
   });
 
   test('handleChange should trigger update on checkbox', () => {

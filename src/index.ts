@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
+export * from './constants';
 import { Values, Validation, Target, Form, FromResult } from './types';
-import { RULES } from 'constants';
 import { validate, styledConsole, ThrowError } from 'utils';
 
 export const useForm = (initialValues: Values, validation?: Validation, validateOnChange?: boolean): FromResult => {
