@@ -1,4 +1,4 @@
-# useForm - is what you need to handle form
+# useForm - that is what you need to handle form
 ##Instalation
 ```
 npm i use-form-validation-hook
