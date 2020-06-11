@@ -95,6 +95,7 @@ By default it is equal to ```false``` - ```validate function``` will be called o
 
 - ```values``` - object that contains current form values.
 - ```errors``` - object that contains current form errors.
+- ```touched``` - object that represent changed fields.
 - ```handleChange``` - will update values object. Should be passed to input onChange function.
 If ```validateOnChange``` equal to true. ```handleChange``` also will trigger ```validate function``` and update ```errors```
 - ```handleSubmit``` - takes ```callback``` and should be passed to ```<form>``` onSubmit function. ```callback``` will be called if validation has succeed, or there is no ```validation```.
