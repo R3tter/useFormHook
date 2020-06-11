@@ -54,11 +54,14 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
     }
   };
 
+  const triggerValidation = () => validation && validate(form, validation, setForm);
+
   return {
     ...form,
     handleChange,
     handleSubmit,
     reset,
-    setValue
+    setValue,
+    triggerValidation
   };
 };

@@ -119,7 +119,8 @@ describe('useForm works on not expected cases', () => {
   });
 
   test('handleSubmit was called without callback', () => {
-    act(() => result.current.handleSubmit()());
+    const fn = jest.fn();
+    act(() => result.current.handleSubmit(fn)());
     expect(1).toBe(1);
   });
 
@@ -133,4 +134,15 @@ describe('useForm works on not expected cases', () => {
     act(() => result.current.handleSubmit(() => null)());
     expect(1).toBe(1);
   });
+
+  test('triggerValidation should work as expected', () => {
+    const result = renderHook(() => useForm({ name: '' }, [{ rules: [RULES.required], name: 'name' }], true)).result;
+    act(() => { result.current.triggerValidation() });
+    expect(result.current.errors).toMatchObject({
+      name: RULES.required.message
+    });
+    const event = { name: 'name', value: 'someName' };
+    act(() => result.current.handleChange(createEvent(event)));
+    expect(result.current.errors).toMatchObject({});
+  })
 });

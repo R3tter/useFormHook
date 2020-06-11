@@ -100,6 +100,7 @@ If ```validateOnChange``` equal to true. ```handleChange``` also will trigger ``
 - ```handleSubmit``` - takes ```callback``` and should be passed to ```<form>``` onSubmit function. ```callback``` will be called if validation has succeed, or there is no ```validation```.
 - ```reset``` - will drop ```values``` and ```errors``` to initial state
 - ```setValue``` - use this function on special cases, when you need directly pass some value to useForm ```values``` object.
+- ```triggerValidation``` - use this function when you want to trigger validation manually
 
 
 
