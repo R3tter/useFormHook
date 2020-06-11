@@ -22,7 +22,7 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
           [name]: type === 'checkbox' ? checked : value
         }
       };
-      validateOnChange ? validation && validate(newForm, validation, setForm) : setForm(newForm);
+      validateOnChange ? validation && validate(newForm, validation, setForm, name) : setForm(newForm);
     } catch (e) {
       styledConsole('Pass correct event object to handleChange function');
     }

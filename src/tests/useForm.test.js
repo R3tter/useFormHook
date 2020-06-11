@@ -102,11 +102,11 @@ describe('useForm works as expected', () => {
   });
 
   test('validation should work from onChange if validateOnChange is true', () => {
-    const result = renderHook(() => useForm(initialValues, [{ rules: [RULES.required], name: 'name' }], true)).result;
-    expect(result.current.errors).toMatchObject({});
+    const result = renderHook(() => useForm(initialValues, [{ rules: [RULES.required], name: 'name' }, { rules: [RULES.required], name: 'password' }], true)).result;
     const event = { name: 'name', value: '' };
     act(() => result.current.handleChange(createEvent(event)));
-    expect(result.current.errors).toMatchObject({
+    console.log(result.current.errors);
+    expect(result.current.errors).toEqual({
       name: RULES.required.message
     });
   })
