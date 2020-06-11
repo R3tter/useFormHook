@@ -29,6 +29,9 @@ export type Errors = {
 export type Form = {
   values: Values;
   errors: Errors | {};
+  touched: {
+    [key: string]: boolean;
+  };
 };
 
 export type FromResult = {

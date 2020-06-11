@@ -8,7 +8,8 @@ import { validate, styledConsole, ThrowError } from 'utils';
 export const useForm = (initialValues: Values, validation?: Validation, validateOnChange?: boolean): FromResult => {
   const initialForm = {
     values: { ...initialValues },
-    errors: {}
+    errors: {},
+    touched: {}
   };
   const [form, setForm] = useState<Form>(initialForm);
 
@@ -20,6 +21,10 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
         values: {
           ...form.values,
           [name]: type === 'checkbox' ? checked : value
+        },
+        touched: {
+          ...form.touched,
+          [name]: true
         }
       };
       validateOnChange ? validation && validate(newForm, validation, setForm, name) : setForm(newForm);

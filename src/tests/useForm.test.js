@@ -105,10 +105,16 @@ describe('useForm works as expected', () => {
     const result = renderHook(() => useForm(initialValues, [{ rules: [RULES.required], name: 'name' }, { rules: [RULES.required], name: 'password' }], true)).result;
     const event = { name: 'name', value: '' };
     act(() => result.current.handleChange(createEvent(event)));
-    console.log(result.current.errors);
     expect(result.current.errors).toEqual({
       name: RULES.required.message
     });
+  });
+
+  test('touched property should work as expected', () => {
+    const result = renderHook(() => useForm(initialValues, [{ rules: [RULES.required], name: 'userName' }])).result;
+    expect(result.current.touched).toEqual({});
+    act(() => result.current.handleChange(createEvent({ name: 'userName', value: '12' })));
+    expect(result.current.touched).toEqual({userName: true});
   })
 });
 
