@@ -7,6 +7,8 @@ import { createEvent } from 'utils';
 const initialValues = {
   name: 'user name',
   password: '12345',
+  secondName: 'user name',
+  lastName: 'last name',
   empty: '',
   checkbox: false
 };
@@ -32,7 +34,7 @@ describe('useForm works as expected', () => {
       ...initialValues,
       name: event.value
     });
-    act(() => result.current.handleChange(createEvent({...event, value: 'some other' })));
+    act(() => result.current.handleChange(createEvent({ ...event, value: 'some other' })));
     expect(result.current.values).toMatchObject({
       ...initialValues,
       name: 'some other'
@@ -83,7 +85,7 @@ describe('useForm works as expected', () => {
   test('validation should work on array', () => {
     const fn = jest.fn();
     const result = renderHook(() =>
-      useForm({ array: ['value'] }, [{ rules: [{ regex: (value) => value[0] === 'value' }], name: 'array' }])
+      useForm({ array: ['value'] }, [{ rules: [{ regex: value => value[0] === 'value' }], name: 'array' }])
     ).result;
     act(() => result.current.handleSubmit(fn)());
     expect(fn).toBeCalledTimes(1);
@@ -98,11 +100,20 @@ describe('useForm works as expected', () => {
     expect(fn).toBeCalledTimes(0);
     expect(result.current.errors).toMatchObject({
       repeatPass: 'Should be equal to pass'
-    })
+    });
   });
 
   test('validation should work from onChange if validateOnChange is true', () => {
-    const result = renderHook(() => useForm(initialValues, [{ rules: [RULES.required], name: 'name' }, { rules: [RULES.required], name: 'password' }], true)).result;
+    const result = renderHook(() =>
+      useForm(
+        initialValues,
+        [
+          { rules: [RULES.required], name: 'name' },
+          { rules: [RULES.required], name: 'password' }
+        ],
+        true
+      )
+    ).result;
     const event = { name: 'name', value: '' };
     act(() => result.current.handleChange(createEvent(event)));
     expect(result.current.errors).toEqual({
@@ -114,8 +125,25 @@ describe('useForm works as expected', () => {
     const result = renderHook(() => useForm(initialValues, [{ rules: [RULES.required], name: 'userName' }])).result;
     expect(result.current.touched).toEqual({});
     act(() => result.current.handleChange(createEvent({ name: 'userName', value: '12' })));
-    expect(result.current.touched).toEqual({userName: true});
-  })
+    expect(result.current.touched).toEqual({ userName: true });
+  });
+
+  test('should have access to all form data', () => {
+    const compare = (value, formValues) => value === formValues.secondName && value !== formValues.lastName;
+    const result = renderHook(() =>
+      useForm(initialValues, [{ rules: [{ regex: compare, message: 'dont have access to form data' }], name: 'name' }])
+    ).result;
+    act(() => {
+      result.current.handleSubmit()();
+    });
+    expect(result.current.errors).toEqual({});
+
+    act(() => result.current.handleChange(createEvent({ name: 'name', value: '12' })));
+    act(() => {
+      result.current.handleSubmit()();
+    });
+    expect(result.current.errors).toEqual({ name: 'dont have access to form data' });
+  });
 });
 
 describe('useForm works on not expected cases', () => {
@@ -143,12 +171,14 @@ describe('useForm works on not expected cases', () => {
 
   test('triggerValidation should work as expected', () => {
     const result = renderHook(() => useForm({ name: '' }, [{ rules: [RULES.required], name: 'name' }], true)).result;
-    act(() => { result.current.triggerValidation() });
+    act(() => {
+      result.current.triggerValidation();
+    });
     expect(result.current.errors).toMatchObject({
       name: RULES.required.message
     });
     const event = { name: 'name', value: 'someName' };
     act(() => result.current.handleChange(createEvent(event)));
     expect(result.current.errors).toMatchObject({});
-  })
+  });
 });

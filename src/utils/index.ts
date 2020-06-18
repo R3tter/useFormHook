@@ -28,7 +28,7 @@ export const validate = (
             ThrowError(valueIsArr && !isFunc, 'Use function to check array like values');
             if (!isError) {
               // @ts-ignore
-              isError = isFunc ? !regex(value) : !regex.test(value);
+              isError = isFunc ? !regex(value, form.values) : !regex.test(value);
               errors = isError ? { ...errors, [name]: message } : errors;
             }
           });
