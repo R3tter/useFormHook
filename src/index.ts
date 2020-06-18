@@ -1,13 +1,15 @@
 import { useState } from 'react';
 
+export * from './constants';
+
 import { Values, Validation, Target, Form, FromResult } from './types';
-import { RULES } from 'constants';
 import { validate, styledConsole, ThrowError } from 'utils';
 
 export const useForm = (initialValues: Values, validation?: Validation, validateOnChange?: boolean): FromResult => {
   const initialForm = {
     values: { ...initialValues },
-    errors: {}
+    errors: {},
+    touched: {}
   };
   const [form, setForm] = useState<Form>(initialForm);
 
@@ -19,9 +21,13 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
         values: {
           ...form.values,
           [name]: type === 'checkbox' ? checked : value
+        },
+        touched: {
+          ...form.touched,
+          [name]: true
         }
       };
-      validateOnChange ? validation && validate(newForm, validation, setForm) : setForm(newForm);
+      validateOnChange ? validation && validate(newForm, validation, setForm, name) : setForm(newForm);
     } catch (e) {
       styledConsole('Pass correct event object to handleChange function');
     }
@@ -53,11 +59,14 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
     }
   };
 
+  const triggerValidation = () => validation && validate(form, validation, setForm);
+
   return {
     ...form,
     handleChange,
     handleSubmit,
     reset,
-    setValue
+    setValue,
+    triggerValidation
   };
 };

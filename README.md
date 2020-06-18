@@ -1,11 +1,11 @@
-# useForm - is what you need to handle form
+# useForm - that is what you need to handle form
 ##Instalation
 ```
-npm i use-form-hook
+npm i use-form-validation-hook
 ```
 ##Usage
 ```
-import {useForm, RULES} from 'use-form-hook';
+import {useForm, RULES} from 'use-form-validation-hook';
 
 const Component = (data) => {
     const initialState = {
@@ -29,7 +29,7 @@ const Component = (data) => {
       initialState,
       validation
     );
-
+    // You can use setValue if you want update fromData depending on props
     useEffect(() => {
         setValue(data);
     }, [data])
@@ -95,12 +95,13 @@ By default it is equal to ```false``` - ```validate function``` will be called o
 
 - ```values``` - object that contains current form values.
 - ```errors``` - object that contains current form errors.
+- ```touched``` - object that represent changed fields.
 - ```handleChange``` - will update values object. Should be passed to input onChange function.
 If ```validateOnChange``` equal to true. ```handleChange``` also will trigger ```validate function``` and update ```errors```
 - ```handleSubmit``` - takes ```callback``` and should be passed to ```<form>``` onSubmit function. ```callback``` will be called if validation has succeed, or there is no ```validation```.
 - ```reset``` - will drop ```values``` and ```errors``` to initial state
 - ```setValue``` - use this function on special cases, when you need directly pass some value to useForm ```values``` object.
+- ```triggerValidation``` - use this function when you want to trigger validation manually
 
 
 
-  

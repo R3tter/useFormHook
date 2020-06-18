@@ -10,7 +10,7 @@ type Rule = {
 };
 
 export type Validation = Array<{
-  rules: Array<Rule>;
+  rules?: Array<Rule>;
   name: string;
   matchWithField?: string;
 }>;
@@ -29,6 +29,9 @@ export type Errors = {
 export type Form = {
   values: Values;
   errors: Errors | {};
+  touched: {
+    [key: string]: boolean;
+  };
 };
 
 export type FromResult = {
@@ -38,4 +41,5 @@ export type FromResult = {
   handleSubmit: (callBack: (data: Values) => any) => void;
   reset: () => void;
   setValue: (data: Values) => void;
+  triggerValidation: () => boolean;
 };
