@@ -27,13 +27,13 @@ beforeEach(() => {
     setValue = jest.fn();
 });
 
-test('validation success', () => {
+test('validation succeed', () => {
     const result = validate(form, validation, setValue);
     expect(result).toBe(true);
     expect(setValue).toHaveBeenCalledTimes(1);
 });
 
-test('functional regex should work', () => {
+test('functional regex works fine', () => {
     const validateFn = jest.fn();
     validate(form, [{
         rules: [{

@@ -18,7 +18,7 @@ const Component = (data) => {
     const validation = [
       { rules: [RULES.required], name: 'name' },
       {
-        rules: [{ regex: value => !!value.length, message: "Cannot be empty" }],
+        rules: [{ regex: (value, formValues) => !!value.length, message: "Cannot be empty" }],
         name: 'merchants'
       },
       { rules: [RULES.required], name: 'password' },
@@ -84,7 +84,7 @@ const Component = (data) => {
     }];
     
   // Rule -  { regex: /([^\s])/, message: 'Is required'}
-  // regex - also can be a function to handle specific values
+  // regex - also can be a function to handle specific values 
   // matchWithField - name of the field which should match with
   ```
 - ```validateOnChange``` - boolean. (optional)  
