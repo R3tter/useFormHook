@@ -42,4 +42,5 @@ export type FromResult = {
   reset: () => void;
   setValue: (data: Values) => void;
   triggerValidation: () => boolean;
+  isValid: () => boolean;
 };

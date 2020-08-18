@@ -102,6 +102,7 @@ If ```validateOnChange``` equal to true. ```handleChange``` also will trigger ``
 - ```reset``` - will drop ```values``` and ```errors``` to initial state
 - ```setValue``` - use this function on special cases, when you need directly pass some value to useForm ```values``` object.
 - ```triggerValidation``` - use this function when you want to trigger validation manually
+- ```isValid```: function - return boolean
 
 
 

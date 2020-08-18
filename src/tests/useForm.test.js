@@ -85,7 +85,7 @@ describe('useForm works as expected', () => {
   test('validation should work on array', () => {
     const fn = jest.fn();
     const result = renderHook(() =>
-      useForm({ array: ['value'] }, [{ rules: [{ regex: value => value[0] === 'value' }], name: 'array' }])
+      useForm({ array: ['value'] }, [{ rules: [{ regex: (value) => value[0] === 'value' }], name: 'array' }])
     ).result;
     act(() => result.current.handleSubmit(fn)());
     expect(fn).toBeCalledTimes(1);
@@ -143,6 +143,17 @@ describe('useForm works as expected', () => {
       result.current.handleSubmit()();
     });
     expect(result.current.errors).toEqual({ name: 'dont have access to form data' });
+  });
+
+  test('isValid will return boolean', () => {
+    const result = renderHook(() =>
+      useForm(initialValues, [
+        { rules: [RULES.required], name: 'userName' },
+        { rules: [RULES.required], name: 'fake' }
+      ])
+    ).result;
+    act(() => result.current.handleChange(createEvent({ name: 'userName', value: '12' })));
+    expect(result.current.isValid()).toEqual(false);
   });
 });
 

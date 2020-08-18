@@ -10,7 +10,7 @@ export const ThrowError = (param: boolean, message: string) => {
 export const validate = (
   form: Form,
   validation: Validation,
-  setForm: (data: Form) => void,
+  setForm?: (data: Form) => void,
   fieldName?: string
 ): boolean => {
   try {
@@ -19,7 +19,7 @@ export const validate = (
     validation.forEach(({ rules, name, matchWithField }) => {
       if (!fieldName || fieldName === name) {
         let isError = false;
-        const value = form.values[name];
+        const value = form.values[name] ?? '';
         const valueIsArr = Array.isArray(value);
 
         if (!matchWithField) {
@@ -41,7 +41,7 @@ export const validate = (
       }
     });
 
-    setForm({
+    setForm?.({
       ...form,
       errors
     });

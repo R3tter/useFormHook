@@ -60,6 +60,7 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
   };
 
   const triggerValidation = () => validation && validate(form, validation, setForm);
+  const isValid = () => (validation ? validate(form, validation) : true);
 
   return {
     ...form,
@@ -67,6 +68,7 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
     handleSubmit,
     reset,
     setValue,
-    triggerValidation
+    triggerValidation,
+    isValid
   };
 };
