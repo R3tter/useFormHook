@@ -94,7 +94,9 @@ describe('useForm works as expected', () => {
   test('validation should work on matchWithField', () => {
     const fn = jest.fn();
     const result = renderHook(() =>
-      useForm({ pass: '1234', repeatPass: '123' }, [{ name: 'repeatPass', matchWithField: 'pass' }])
+      useForm({ pass: '1234', repeatPass: '123' }, [
+        { name: 'repeatPass', matchWithField: { field: 'pass', message: 'Should be equal to pass' } }
+      ])
     ).result;
     act(() => result.current.handleSubmit(fn)());
     expect(fn).toBeCalledTimes(0);

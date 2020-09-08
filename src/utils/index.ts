@@ -22,7 +22,7 @@ export const validate = (
         const value = form.values[name] ?? '';
         const valueIsArr = Array.isArray(value);
 
-        if (!matchWithField?.field) {
+        if (!matchWithField) {
           rules.forEach(({ regex, message }) => {
             const isFunc = typeof regex === 'function';
             ThrowError(valueIsArr && !isFunc, 'Use function to check array like values');
