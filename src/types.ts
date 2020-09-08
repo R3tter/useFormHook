@@ -12,7 +12,10 @@ type Rule = {
 export type Validation = Array<{
   rules?: Array<Rule>;
   name: string;
-  matchWithField?: string;
+  matchWithField?: {
+    field: string;
+    message: string;
+  };
 }>;
 
 export type Target = {

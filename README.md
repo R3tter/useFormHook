@@ -22,7 +22,7 @@ const Component = (data) => {
         name: 'merchants'
       },
       { rules: [RULES.required], name: 'password' },
-      { name: 'repeatPassword', matchWithField: 'password' },
+      { name: 'repeatPassword', matchWithField: { field: 'password' } },
     ];
     
     const { values, errors, handleChange, handleSubmit, setValue } = useForm(
@@ -80,12 +80,15 @@ const Component = (data) => {
     [{
       rules: Array<Rule>;
       name: string;
-      matchWithField?: string;
+      matchWithField?: {
+        field: string;
+        message: string;
+      };
     }];
     
   // Rule -  { regex: /([^\s])/, message: 'Is required'}
   // regex - also can be a function to handle specific values 
-  // matchWithField - name of the field which should match with
+  // matchWithField - object with field name and message (optional).
   ```
 - ```validateOnChange``` - boolean. (optional)  
 If true ```validate function``` will be called on every change.

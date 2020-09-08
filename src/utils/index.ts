@@ -22,7 +22,7 @@ export const validate = (
         const value = form.values[name] ?? '';
         const valueIsArr = Array.isArray(value);
 
-        if (!matchWithField) {
+        if (!matchWithField?.field) {
           rules.forEach(({ regex, message }) => {
             const isFunc = typeof regex === 'function';
             ThrowError(valueIsArr && !isFunc, 'Use function to check array like values');
@@ -34,8 +34,8 @@ export const validate = (
           });
         } else {
           errors =
-            value !== form.values[matchWithField]
-              ? { ...errors, [name]: `Should be equal to ${matchWithField}` }
+            value !== form.values[matchWithField.field]
+              ? { ...errors, [name]: matchWithField.message || `Should be equal to ${matchWithField}` }
               : errors;
         }
       }
