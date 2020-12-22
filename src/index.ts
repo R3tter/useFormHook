@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export * from './constants';
 
@@ -13,29 +13,40 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
   };
   const [form, setForm] = useState<Form>(initialForm);
 
-  const handleChange = ({ target }: { target: Target }) => {
+  const handleChange = useCallback(({ target }: { target: Target }) => {
     try {
       const { value, name, type, checked } = target;
-      const newForm = {
-        ...form,
-        values: {
-          ...form.values,
-          [name]: type === 'checkbox' ? checked : value
-        },
-        touched: {
-          ...form.touched,
-          [name]: true
+      setForm(prev => {
+        const newForm = {
+          ...prev,
+          values: {
+            ...prev.values,
+            [name]: type === 'checkbox' ? checked : value
+          },
+          touched: {
+            ...prev.touched,
+            [name]: true
+          }
+        };
+        const errors = validateOnChange && validation ? validate(newForm, validation, name) : {};
+        return {
+          ...newForm,
+          errors
         }
-      };
-      validateOnChange ? validation && validate(newForm, validation, setForm, name) : setForm(newForm);
+      });
     } catch (e) {
       styledConsole('Pass correct event object to handleChange function');
     }
-  };
+  }, []);
 
   const handleSubmit = (callback: (data: Values) => any) => () => {
     try {
-      validation ? validate(form, validation, setForm) && callback(form.values) : callback(form.values);
+      const errors = validation ? validate(form, validation) : null;
+      !errors && callback(form.values);
+      errors && setForm({
+        ...form,
+        errors
+      })
     } catch (e) {
       styledConsole('Pass callback function to handleSubmit');
     }
@@ -59,8 +70,14 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
     }
   };
 
-  const triggerValidation = () => validation && validate(form, validation, setForm);
-  const isValid = () => (validation ? validate(form, validation) : true);
+  const triggerValidation = () => {
+    const errors = validation ? validate(form, validation) : null;
+    errors && setForm({
+      ...form,
+      errors
+    })
+  }
+  const isValid = () => (validation ? !Object.keys(validate(form, validation)).length : true);
 
   return {
     ...form,
