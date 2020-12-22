@@ -44,6 +44,6 @@ export type FromResult = {
   handleSubmit: (callBack: (data: Values) => any) => void;
   reset: () => void;
   setValue: (data: Values) => void;
-  triggerValidation: () => boolean;
+  triggerValidation: () => void;
   isValid: () => boolean;
 };
