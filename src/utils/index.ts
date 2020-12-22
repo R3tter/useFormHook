@@ -10,9 +10,8 @@ export const ThrowError = (param: boolean, message: string) => {
 export const validate = (
   form: Form,
   validation: Validation,
-  setForm?: (data: Form) => void,
   fieldName?: string
-): boolean => {
+): any => {
   try {
     let errors: Errors = {};
 
@@ -41,11 +40,7 @@ export const validate = (
       }
     });
 
-    setForm?.({
-      ...form,
-      errors
-    });
-    return !Object.keys(errors).length;
+    return errors;
   } catch (e) {
     styledConsole(e);
   }
