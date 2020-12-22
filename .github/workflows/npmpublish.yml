@@ -9,30 +9,19 @@ on:
       - master
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: npm ci
-      - run: npm run test
-
   publish-npm:
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-          registry-url: https://registry.npmjs.org/ 
+          registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm run build
       - name: npm publish
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
           npm publish ./dist/
-        env: 
-         NPM_TOKEN: ${{ secrets.npm_token }} 
+        env:
+         NPM_TOKEN: ${{ secrets.npm_token }}
