@@ -28,7 +28,7 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
             [name]: true
           }
         };
-        const errors = validateOnChange && validation ? validate(newForm, validation, name) : {};
+        const errors = validateOnChange && validation ? validate(newForm, validation, name) : prev.errors;
         return {
           ...newForm,
           errors
@@ -45,7 +45,7 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
 
   const handleSubmit = (callback: (data: Values) => any) => () => {
     try {
-      const errors = validation ? validate(form, validation) : {};
+      const errors = validation ? validate(form, validation) : form.errors;
       !getLength(errors) && callback(form.values);
       setForm({
         ...form,
@@ -76,7 +76,7 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
 
   const triggerValidation = () => setForm({
       ...form,
-      errors: validation ? validate(form, validation) : {}
+      errors: validation ? validate(form, validation) : form.errors
   })
 
 
