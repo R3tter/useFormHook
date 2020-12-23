@@ -39,11 +39,15 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
     }
   }, []);
 
+  const getLength = obj => Object.keys(obj).length;
+
+  const isValid = () => (validation ? !getLength(validate(form, validation)) : true);
+
   const handleSubmit = (callback: (data: Values) => any) => () => {
     try {
-      const errors = validation ? validate(form, validation) : null;
-      !errors && callback(form.values);
-      errors && setForm({
+      const errors = validation ? validate(form, validation) : {};
+      !getLength(errors) && callback(form.values);
+      setForm({
         ...form,
         errors
       })
@@ -70,14 +74,11 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
     }
   };
 
-  const triggerValidation = () => {
-    const errors = validation ? validate(form, validation) : null;
-    errors && setForm({
+  const triggerValidation = () => setForm({
       ...form,
-      errors
-    })
-  }
-  const isValid = () => (validation ? !Object.keys(validate(form, validation)).length : true);
+      errors: validation ? validate(form, validation) : {}
+  })
+
 
   return {
     ...form,
