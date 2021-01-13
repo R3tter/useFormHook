@@ -58,15 +58,11 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
 
   const reset = () => setForm(initialForm);
 
-  const setValue = (data: Values) => {
+  const setValue = (param: Values | Function) => {
     try {
-      const isObject = typeof data === 'object' && !Array.isArray(data);
-      ThrowError(!isObject, 'setValue function should receive object - { [key]: value }');
       const newForm = {
         ...form,
-        values: {
-          ...data
-        }
+        values: typeof param === 'function' ? param(form.values) : { ...param }
       };
       setForm(newForm);
     } catch (e) {
