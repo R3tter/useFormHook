@@ -60,11 +60,11 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
 
   const setValue = (param: Values | Function) => {
     try {
-      const newForm = {
-        ...form,
-        values: typeof param === 'function' ? param(form.values) : { ...param }
-      };
-      setForm(newForm);
+      setForm(prev => ({
+          ...prev,
+          values: typeof param === 'function' ? param(prev.values) : { ...param }
+        })
+      );
     } catch (e) {
       styledConsole(e);
     }
