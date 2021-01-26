@@ -1,6 +1,6 @@
 {
   "name": "use-form-validation-hook",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "main": "index.js",
   "scripts": {
     "test": "jest",

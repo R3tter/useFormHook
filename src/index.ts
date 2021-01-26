@@ -45,11 +45,13 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
 
   const handleSubmit = (callback: (data: Values) => any) => () => {
     try {
-      const errors = validation ? validate(form, validation) : form.errors;
-      !getLength(errors) && callback(form.values);
-      setForm({
-        ...form,
-        errors
+      setForm(prev => {
+        const errors = validation ? validate(prev, validation) : prev.errors;
+        !getLength(errors) && callback(prev.values);
+        return {
+          ...prev,
+          errors
+        }
       })
     } catch (e) {
       styledConsole('Pass callback function to handleSubmit');
@@ -70,10 +72,10 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
     }
   };
 
-  const triggerValidation = () => setForm({
-      ...form,
-      errors: validation ? validate(form, validation) : form.errors
-  })
+  const triggerValidation = () => setForm(prev => ({
+      ...prev,
+      errors: validation ? validate(prev, validation) : prev.errors
+  }))
 
 
   return {
