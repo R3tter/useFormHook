@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 export * from './constants';
 
 import { Values, Validation, Target, Form, FromResult } from './types';
-import { validate, styledConsole, ThrowError } from 'utils';
+import { validate, styledConsole } from 'utils';
 
 export const useForm = (initialValues: Values, validation?: Validation, validateOnChange?: boolean): FromResult => {
   const initialForm = {
@@ -45,14 +45,17 @@ export const useForm = (initialValues: Values, validation?: Validation, validate
 
   const handleSubmit = (callback: (data: Values) => any) => () => {
     try {
+      let errors = null;
+      let values = null
       setForm(prev => {
-        const errors = validation ? validate(prev, validation) : prev.errors;
-        !getLength(errors) && callback(prev.values);
+        values = prev.values
+        errors = validation ? validate(prev, validation) : prev.errors;
         return {
           ...prev,
           errors
         }
       })
+      !getLength(errors) && callback(values);
     } catch (e) {
       styledConsole('Pass callback function to handleSubmit');
     }
